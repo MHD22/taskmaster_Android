@@ -7,6 +7,8 @@ There ara three main activities:
 2. `AddTaskActivity`: (The page which let you add a new task)
 3. `AllTasksActivity`: (The page which displays the all tasks for you).
 
+### _________________________________
+
 ***For first day changes (lab 26):***
 
 * created the three activities and add the appropriate components inside them.
@@ -16,10 +18,26 @@ There ara three main activities:
 *Screenshots:*
 
 MainActivity:
-![Main activity](screenshots/mainActivity1.png)
+
+<img src="screenshots/mainActivity1.png" alt="Main activity" width="300" height="500"/>
+
+<br>
+<br>
+<br>
+<br>
+
 
 AddTaskActivity:
-![Add Task Activity](screenshots/addTask1.png)
+
+<img src="screenshots/addTask1.png" alt="Add Task Activity" width="300" height="500"/>
+<br>
+<br>
+<br>
+<br>
+
 
 AllTasksActivity:
-![All Tasks Activity](screenshots/allTasks1.png)
+
+<img src="screenshots/allTasks1.png" alt="All Tasks Activity" width="300" height="500"/>
+
+### _________________________________
