@@ -7,48 +7,53 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/myTitle"
+        android:id="@+id/home_page_title"
         android:layout_width="166dp"
         android:layout_height="55dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="My Tasks"
-        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        android:text="User's Tasks"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="279dp"
-        android:layout_height="196dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myTitle"
-        app:srcCompat="@android:drawable/ic_menu_agenda" />
-
     <Button
-        android:id="@+id/button_addTask"
+        android:id="@+id/button_task1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Add Task"
-        app:layout_constraintBaseline_toBaselineOf="@+id/button_allTasks"
-        app:layout_constraintEnd_toStartOf="@+id/button_allTasks"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="70dp"
+        android:text="Study"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_page_title" />
 
     <Button
-        android:id="@+id/button_allTasks"
+        android:id="@+id/button_task2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="clean the room"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_task1" />
+
+    <Button
+        android:id="@+id/button_task3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="take medicine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_task2" />
+
+    <Button
+        android:id="@+id/button_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="50dp"
-        android:layout_marginEnd="16dp"
-        android:text="All Tasks"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button_addTask"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        android:text="Settings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_task3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
