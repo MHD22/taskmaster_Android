@@ -11,7 +11,7 @@ There ara a few main activities:
 
 ### _________________________________
 
-***For first day changes (lab 26):***
+***first day changes (lab 26):***
 
 * created the three activities and add the appropriate components inside them.
 * connect them with the buttons in the MainActivity(Add Task, All Tasks).
@@ -45,7 +45,7 @@ AllTasksActivity:
 ### _________________________________
 
 
-***For second day changes (lab 27):***
+***Second day changes (lab 27):***
 
 * update the home page (Main Activity) to be contains main title which hold the user name (which is set by user from the settings page) and three tasks buttons, and one button for settings.
 * Add TaskDetailActivity that contains title (from the tapped button of the home page), and hard coded description for now.
@@ -73,6 +73,41 @@ TaskDetailsActivity:
 
 
 SettingsActivity:
+
+<img src="screenshots/settings2.png" alt="All Tasks Activity" width="300" height="500"/>
+
+### _________________________________
+
+
+***Third day's changes (lab 27):***
+
+* update the home page (Main Activity) to be contains main title which hold the user name (which is set by user from the settings page) and RecyclerView which hold the list of tasks and view it as a list for the user, and one button for settings.
+* create a fragment to hold the style for each task..(title, body, state)
+* create taskAdapter for binding the data with the view(fragment styles)
+* connect them together and set onClick listener on each ViewHolder to response for user click and go on the task details page with the title of the tapped task
+
+*Screenshots:*
+
+MainActivity:
+
+<img src="screenshots/mainActivity3.png" alt="Main activity" width="300" height="500"/>
+
+<br>
+<br>
+<br>
+<br>
+
+
+TaskDetailsActivity: (same as the previous one)
+
+<img src="screenshots/taskDetails3.png" alt="Add Task Activity" width="300" height="500"/>
+<br>
+<br>
+<br>
+<br>
+
+
+SettingsActivity: (same as the previous one)
 
 <img src="screenshots/settings2.png" alt="All Tasks Activity" width="300" height="500"/>
 
