@@ -1,11 +1,13 @@
 # Taskmaster Android App:
 
 This App will contains tasks to do.. and you can add tasks and display your all tasks
-There ara three main activities:
+There ara a few main activities:
 
-1. `MainActivity`: (The home page which from it you can go to add a new task or to see the all tasks)
-2. `AddTaskActivity`: (The page which let you add a new task)
-3. `AllTasksActivity`: (The page which displays the all tasks for you).
+1. `MainActivity`
+2. `AddTaskActivity`
+3. `AllTasksActivity`
+4. `TaskDetailsActivity`
+5. `SettingsActivity`
 
 ### _________________________________
 
@@ -39,5 +41,39 @@ AddTaskActivity:
 AllTasksActivity:
 
 <img src="screenshots/allTasks1.png" alt="All Tasks Activity" width="300" height="500"/>
+
+### _________________________________
+
+
+***For second day changes (lab 27):***
+
+* update the home page (Main Activity) to be contains main title which hold the user name (which is set by user from the settings page) and three tasks buttons, and one button for settings.
+* Add TaskDetailActivity that contains title (from the tapped button of the home page), and hard coded description for now.
+* Add SettingsActivity, which contain field to enter the userName, and save button to save the user name in the sharedPreferences.. to persist and access this name from the homePage.
+
+*Screenshots:*
+
+MainActivity:
+
+<img src="screenshots/mainActivity2.png" alt="Main activity" width="300" height="500"/>
+
+<br>
+<br>
+<br>
+<br>
+
+
+TaskDetailsActivity:
+
+<img src="screenshots/taskDetails2.png" alt="Add Task Activity" width="300" height="500"/>
+<br>
+<br>
+<br>
+<br>
+
+
+SettingsActivity:
+
+<img src="screenshots/settings2.png" alt="All Tasks Activity" width="300" height="500"/>
 
 ### _________________________________
