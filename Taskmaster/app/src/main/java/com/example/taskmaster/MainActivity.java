@@ -3,16 +3,19 @@ package com.example.taskmaster;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,22 +27,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras felis massa, elementum a nibh sed, sodales posuere nunc. Vivamus eget ante malesuada, fermentum tellus eget, dignissim enim. Duis felis enim, facilisis in tortor eget, pellentesque tristique dolor. Nullam hendrerit ex at sagittis tincidunt. Cras in sodales mauris. Quisque lobortis nisl quis rhoncus accumsan. ";
+        // dataBase usage..
+        TaskDataBase db = TaskDataBase.getInstance(this);
+        TaskDao taskDao = db.taskDao();
+
+        List<Task> tasksDB = taskDao.getAll();
+
+
+        //RecyclerView
         RecyclerView recyclerView = findViewById(R.id.RV_main);
-        List tasks = new ArrayList<>();
-        Task t1 = new Task("Clean the room", body, State.NEW );
-        Task t2 = new Task("Study 2 hours", body, State.NEW );
-        Task t3 = new Task("Eat your meal", body, State.NEW );
-        Task t4 = new Task("Take a shower", body, State.NEW );
-        Task t5 = new Task("Feed yor cat", body, State.NEW );
-        Task t6 = new Task("Sleep 6 hours", body, State.NEW );
-        tasks.add(t1);
-        tasks.add(t2);
-        tasks.add(t3);
-        tasks.add(t4);
-        tasks.add(t5);
-        tasks.add(t6);
-        TaskAdapter taskAdapter = new TaskAdapter(tasks, this);
+        TaskAdapter taskAdapter = new TaskAdapter(tasksDB, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.canScrollVertically();
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -47,21 +44,17 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(taskAdapter);
 
 
-
-
-
-
         Button settings = MainActivity.this.findViewById(R.id.button_settings);
+        Button addTask = MainActivity.this.findViewById(R.id.button_add_task_main);
         TextView title  = findViewById(R.id.home_page_title);
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String userName = sharedPreferences.getString("userName","User");
         title.setText(userName+"' Tasks");
 
-        
 
 
-
+        //listeners:
 
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,12 +64,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        addTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addTaskIntent = new Intent(MainActivity.this, AddTaskActivity.class);
+                startActivity(addTaskIntent);
+            }
+        });
 
-    }
-
-    private void clickTask(String title) {
-        Intent taskDetailsIntent = new Intent(MainActivity.this, TaskDetailActivity.class);
-        taskDetailsIntent.putExtra("title",title);
-        startActivity(taskDetailsIntent);
     }
 }
