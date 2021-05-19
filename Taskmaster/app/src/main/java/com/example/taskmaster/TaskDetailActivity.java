@@ -1,6 +1,7 @@
 package com.example.taskmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,12 +15,20 @@ public class TaskDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_task_detail);
 
         TextView titleView = findViewById(R.id.task_details_title_text_view);
-
+        TextView bodyView = findViewById(R.id.txt_view_body_task_details);
+        TextView stateView = findViewById(R.id.txt_view_state_task_details);
         Intent mainIntent = getIntent();
-        String title = mainIntent.getStringExtra("title");
+        int id = mainIntent.getIntExtra("id",0);
 
 
-        titleView.setText(title);
+        TaskDataBase db = TaskDataBase.getInstance(this);
+        TaskDao taskDao = db.taskDao();
+
+        Task task = taskDao.findTaskById(id);
+
+        titleView.setText(task.title);
+        bodyView.setText(task.body);
+        stateView.setText(task.state.toString());
 
 
     }

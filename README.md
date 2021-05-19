@@ -79,7 +79,7 @@ SettingsActivity:
 ### _________________________________
 
 
-***Third day's changes (lab 27):***
+***Third day's changes (lab 28):***
 
 * update the home page (Main Activity) to be contains main title which hold the user name (which is set by user from the settings page) and RecyclerView which hold the list of tasks and view it as a list for the user, and one button for settings.
 * create a fragment to hold the style for each task..(title, body, state)
@@ -110,5 +110,49 @@ TaskDetailsActivity: (same as the previous one)
 SettingsActivity: (same as the previous one)
 
 <img src="screenshots/settings2.png" alt="All Tasks Activity" width="300" height="500"/>
+
+### _________________________________
+
+
+***Forth day's changes (lab 29):***
+
+* update the home page to be contains main title which hold the user name (which is set by user from the settings page) and RecyclerView which hold the list of tasks and view it as a list for the user, a button for settings, and a button for add a task.
+* Edit the TaskDetailsActivity to reflect the all data entered by the user (Title, Body, State), Not just the title.
+* create a Room DataBase which is local db that hold the user's data (task).
+* create the task entity and task DAO (Data Access Object) to let me manipulate the data in the DB (read, add, update, delete).
+* Edit in the mainActivity especially in the decleration of the Adapter .. to take the list of tasks from the DB (getAllTasks())
+
+*Screenshots:*
+
+MainActivity:
+
+<img src="screenshots/mainActivity4.png" alt="Main activity" width="300" height="500"/>
+
+<br>
+<br>
+<br>
+<br>
+
+
+TaskDetailsActivity:
+
+<img src="screenshots/taskDetails4.png" alt="Add Task Activity" width="300" height="500"/>
+<br>
+<br>
+<br>
+<br>
+
+<img src="screenshots/addTask1.png" alt="Add Task Activity" width="300" height="500"/>
+<br>
+<br>
+<br>
+<br>
+
+
+SettingsActivity: (same as the previous one)
+
+<img src="screenshots/settings2.png" alt="All Tasks Activity" width="300" height="500"/>
+
+
 
 ### _________________________________

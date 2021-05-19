@@ -42,7 +42,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     @Override
     public TaskAdapter.TaskViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_task,parent,false);
-
        return new TaskViewHolder(view);
     }
 
@@ -57,7 +56,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             @Override
             public void onClick(View v) {
                 Intent taskDetailsIntent = new Intent(context, TaskDetailActivity.class);
-                taskDetailsIntent.putExtra("title",task.title);
+                taskDetailsIntent.putExtra("id",task.id);
                 context.startActivity(taskDetailsIntent);
             }
         });
