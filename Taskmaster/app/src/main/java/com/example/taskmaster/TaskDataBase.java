@@ -23,10 +23,7 @@ public abstract class TaskDataBase extends RoomDatabase {
                             "task_master").allowMainThreadQueries().build();
                 }
             }
-
         }
         return db;
     }
-
-
 }

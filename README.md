@@ -156,3 +156,16 @@ SettingsActivity: (same as the previous one)
 
 
 ### _________________________________
+
+
+***Forth day's changes (lab 29):***
+
+* Add the utomated testing to the app.. using Espresso.
+* assert that the basic components are displayed
+* write tests that check for some functionalities are working correctly Like( addTask button, Settings and save buttons, click on the recyclerView's viewHolder...)
+
+*Screenshots:*
+
+No changes in the style of pages or additional activities.
+
+### _________________________________
