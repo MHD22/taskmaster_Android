@@ -21,6 +21,7 @@ public class AddTaskActivity extends AppCompatActivity {
         body = findViewById(R.id.taskDescription);
         Button addTask = findViewById(R.id.button_addTask_activity_addTask);
 
+        // database using
         TaskDataBase db = TaskDataBase.getInstance(this);
         TaskDao taskDao = db.taskDao();
 
