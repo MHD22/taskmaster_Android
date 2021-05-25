@@ -10,18 +10,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amplifyframework.datastore.generated.model.Task;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
     List<Task> tasks = new ArrayList<>();
+//    List<TaskRoom> tasks = new ArrayList<>();
     Context context;
 
     public TaskAdapter(List<Task> tasks, Context context) {
         this.context = context;
         this.tasks = tasks;
     }
+//    public TaskAdapter(List<TaskRoom> tasks, Context context) {
+//            this.context = context;
+//            this.tasks = tasks;
+//        }
 
     public static class TaskViewHolder extends RecyclerView.ViewHolder{
 
@@ -33,7 +40,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             this.itemView = itemView;
             titleT = itemView.findViewById(R.id.fragment_title_text);
             bodyT = itemView.findViewById(R.id.fragment_body_text);
-            stateT = itemView.findViewById(R.id.fragment_state_text);
+//            stateT = itemView.findViewById(R.id.fragment_state_text);
         }
     }
 
@@ -48,15 +55,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
     @Override
     public void onBindViewHolder(@NonNull TaskAdapter.TaskViewHolder holder, int position) {
         Task task = tasks.get(position);
-        holder.titleT.setText(task.title);
-        holder.bodyT.setText(task.body);
-        holder.stateT.setText(task.state.toString());
+//        TaskRoom task = tasks.get(position);
+        holder.titleT.setText(task.getTitle());
+        holder.bodyT.setText(task.getBody());
+//        holder.stateT.setText(task.state.toString());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent taskDetailsIntent = new Intent(context, TaskDetailActivity.class);
-                taskDetailsIntent.putExtra("id",task.id);
+                taskDetailsIntent.putExtra("title", task.getTitle());
+                taskDetailsIntent.putExtra("body", task.getBody());
+                taskDetailsIntent.putExtra("state", task.getState());
                 context.startActivity(taskDetailsIntent);
             }
         });

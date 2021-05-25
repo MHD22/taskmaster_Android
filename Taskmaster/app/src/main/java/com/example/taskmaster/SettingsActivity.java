@@ -18,6 +18,9 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // to display the back button in the action bar
+
         Button saveSetting = findViewById(R.id.button_save_name);
         EditText userNameField  = findViewById(R.id.input_user_name);
 

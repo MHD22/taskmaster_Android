@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.amplifyframework.datastore.generated.model.State;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link TaskFragment#newInstance} factory method to

@@ -4,8 +4,10 @@ package com.example.taskmaster;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.amplifyframework.datastore.generated.model.State;
+
 @Entity(tableName = "tasks")
-public class Task {
+public class TaskRoom {
 
     @PrimaryKey(autoGenerate = true)
     int id;
@@ -13,13 +15,13 @@ public class Task {
     String body;
     State state;
 
-    public Task(String title, String body, State state) {
+    public TaskRoom(String title, String body, State state) {
         this.title = title;
         this.body = body;
         this.state = state;
     }
 
-    public Task() {
+    public TaskRoom() {
     }
 
     public String getTitle() {
