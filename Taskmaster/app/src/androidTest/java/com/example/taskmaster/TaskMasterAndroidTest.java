@@ -12,6 +12,7 @@ import org.junit.runner.RunWith;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.clearText;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
@@ -47,11 +48,14 @@ public class TaskMasterAndroidTest {
 
     @Test
     public void testTheClickOnItemInsideTheRecyclerView() {
+
+        // this will be an error because when the main activity is opened first time .. the data will not displayed .. will fix it when I know why is that..
+
         // test click on the item in the recyclerView which has descendant of text ".."  ..
-        onView(withId(R.id.RV_main)).perform(RecyclerViewActions.actionOnItem(hasDescendant(withText("go to market")),click()));
+        onView(withId(R.id.RV_main)).perform(RecyclerViewActions.actionOnItem(hasDescendant(withText("sleep")),click()));
         // check the title of the actionBar.. to match the task title:
-        onView( allOf(withParent(withResourceName("action_bar")), withText("go to market"))).check(matches(isDisplayed()));
-//        onView(withText("go to market")).check(matches(isDisplayed()));
+        onView( allOf(withParent(withResourceName("action_bar")), withText("sleep"))).check(matches(isDisplayed()));
+        // onView(withText("go to market")).check(matches(isDisplayed()));
     }
 
     @Test
@@ -68,16 +72,16 @@ public class TaskMasterAndroidTest {
         onView(withId(R.id.taskDescription)).check(matches(isDisplayed()));
     }
 
-     @Test
-        public void testEditTheUserName() {
-            // go to settings page
-            onView(withId(R.id.button_settings)).perform(click());
-            // edit the user’s username
-            onView(withId(R.id.input_user_name)).perform( clearText(), typeText("Mohammad") );
-            // save changes
-            onView(withId(R.id.button_save_name)).perform(click());
-            // and assert that it says the correct thing on the homepage
-            onView(withId(R.id.home_page_title)).check(matches(withText("Mohammad' Tasks")));
-        }
+    @Test
+    public void testEditTheUserName() {
+        // go to settings page
+        onView(withId(R.id.button_settings)).perform(click());
+        // edit the user’s username
+        onView(withId(R.id.input_user_name)).perform( replaceText("Mohammad") );
+        // save changes
+        onView(withId(R.id.button_save_name)).perform(click());
+        // and assert that it says the correct thing on the homepage
+        onView(withId(R.id.home_page_title)).check(matches(withText("Mohammad' Tasks")));
+    }
 
 }

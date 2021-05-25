@@ -11,19 +11,19 @@ import java.util.List;
 public interface TaskDao {
 
     @Query("select * from tasks")
-    List <Task> getAll();
+    List <TaskRoom> getAll();
 
     @Query("select * from tasks where id = :id")
-    Task findTaskById(int id);
+    TaskRoom findTaskById(int id);
 
     @Insert
-    void insert(Task task);
+    void insert(TaskRoom taskRoom);
 
     @Insert
-    void insertAll(Task... tasks);
+    void insertAll(TaskRoom... taskRooms);
 
     @Delete
-    int delete(Task task);
+    int delete(TaskRoom taskRoom);
 
     @Query("Delete from tasks where title = :title ")
     int deleteTitle(String title);
