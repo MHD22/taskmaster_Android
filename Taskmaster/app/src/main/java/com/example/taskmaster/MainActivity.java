@@ -13,16 +13,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.amplifyframework.AmplifyException;
-import com.amplifyframework.core.Amplify;
-import com.amplifyframework.datastore.AWSDataStorePlugin;
-import com.amplifyframework.datastore.generated.model.State;
-import com.amplifyframework.datastore.generated.model.Task;
 
-import java.util.ArrayList;
+import com.amplifyframework.AmplifyException;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
+import com.amplifyframework.core.Amplify;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
+            Amplify.Auth.handleWebUISignInResponse(data);
+        }
+    }
+
 
 
     @Override
@@ -30,16 +38,89 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button login = findViewById(R.id.login_button_main_activity);
+        Button logout = findViewById(R.id.lougout_button_main_activity);
 
-//        Configure Amplify and DataStore
-        try {
-            Amplify.addPlugin(new AWSDataStorePlugin());
-            Amplify.configure(getApplicationContext());
 
-            Log.i("Tutorial", "Initialized Amplify");
-        } catch (AmplifyException e) {
-            Log.e("Tutorial", "Could not initialize Amplify", e);
-        }
+////        Configure Amplify and
+//        try {
+//              Amplify.addPlugin(new AWSCognitoAuthPlugin());
+//              Amplify.configure(getApplicationContext());
+//
+//            Log.i("Tutorial", "Initialized Amplify");
+
+//            Amplify.Auth.signInWithWebUI(
+//                    this,
+//                    result -> Log.i("AuthQuickStart ", result.toString()),
+//                    error -> Log.e("AuthQuickStart", error.toString())
+//
+//            );
+
+            Amplify.Auth.fetchAuthSession(
+                    result ->{
+                        if(! result.isSignedIn()){
+                            Intent loginIntent = new Intent(this,LoginActivity.class);
+                            startActivity(loginIntent);
+                        }
+                        else{
+                            String userNameTitle =Amplify.Auth.getCurrentUser().getUsername();
+                            setTitle(userNameTitle+"'s Tasks");
+                        }
+                    },
+                    error -> Log.e("AmplifyQuickstart", error.toString())
+            );
+
+            Amplify.Auth.fetchUserAttributes(
+                    attributes -> Log.i("AuthDemo", "User attributes = " + attributes.toString()),
+                    error -> Log.e("AuthDemo", "Failed to fetch user attributes.", error)
+            );
+
+
+
+
+//        } catch (AmplifyException e) {
+//            Log.e("Tutorial", "Could not initialize Amplify", e);
+//        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent signUpIntent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(signUpIntent);
+            }
+        });
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Amplify.Auth.signOut(
+                        () -> Log.i("AuthQuickstart", "Signed out successfully"),
+                        error -> Log.e("AuthQuickstart", error.toString())
+                );
+
+                setTitle("Task Master");
+            }
+        });
+
+
+
+
+
+
+
+
 
 //                create new tasks ..
 //        Task task = Task.builder()
@@ -53,29 +134,29 @@ public class MainActivity extends AppCompatActivity {
 //                error -> Log.e("Tutorial", "Could not save item to DataStore", error)
 //        );
 
-        List<Task> tasks2 = new ArrayList();
+//        List<Task> tasks2 = new ArrayList();
 
 //        // query tasks..
-        Amplify.DataStore.query(Task.class,
-                tasks -> {
-                    while (tasks.hasNext()) {
-                        Task task = tasks.next();
-                        tasks2.add(task);
-                        Log.i("Tutorial", "==== Task ====");
-                        Log.i("Tutorial", "Title: " + task.getTitle());
-
-                        if (task.getBody() != null) {
-                            Log.i("Tutorial", "Body: " + task.getBody().toString());
-                        }
-
-                        if (task.getState() != null) {
-                            Log.i("Tutorial", "State: " + task.getState());
-                        }
-                    }
-//                    triggerRecyclerView(tasks2);
-                },
-                failure -> Log.e("Tutorial", "Could not query DataStore", failure)
-        );
+//        Amplify.DataStore.query(Task.class,
+//                tasks -> {
+//                    while (tasks.hasNext()) {
+//                        Task task = tasks.next();
+//                        tasks2.add(task);
+//                        Log.i("Tutorial", "==== Task ====");
+//                        Log.i("Tutorial", "Title: " + task.getTitle());
+//
+//                        if (task.getBody() != null) {
+//                            Log.i("Tutorial", "Body: " + task.getBody().toString());
+//                        }
+//
+//                        if (task.getState() != null) {
+//                            Log.i("Tutorial", "State: " + task.getState());
+//                        }
+//                    }
+////                    triggerRecyclerView(tasks2);
+//                },
+//                failure -> Log.e("Tutorial", "Could not query DataStore", failure)
+//        );
 
 
 
@@ -91,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        RecyclerView
         RecyclerView recyclerView = findViewById(R.id.RV_main);
-        TaskAdapter taskAdapter = new TaskAdapter(tasks2, this);
+        TaskAdapter taskAdapter = new TaskAdapter(tasksDB, this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.canScrollVertically();
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -100,12 +181,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         Button settings = MainActivity.this.findViewById(R.id.button_settings);
-        Button addTask = MainActivity.this.findViewById(R.id.button_add_task_main);
-        TextView title  = findViewById(R.id.home_page_title);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String userName = sharedPreferences.getString("userName","User");
-        title.setText(userName+"' Tasks");
+        Button addTask = MainActivity.this.findViewById(R.id.button_add_task_main);
+//        TextView title  = findViewById(R.id.home_page_title);
+
+//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        String userName = sharedPreferences.getString("userName","User");
+//        title.setText(userName+"' Tasks");
 
 
 
@@ -127,6 +209,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
 //    private void triggerRecyclerView(List<Task> tasks2) {
@@ -138,4 +222,25 @@ public class MainActivity extends AppCompatActivity {
 //        recyclerView.setLayoutManager(linearLayoutManager);
 //        recyclerView.setAdapter(taskAdapter);
 //    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Amplify.Auth.fetchAuthSession(
+                result ->{
+                    if(! result.isSignedIn()){
+
+                        Intent loginIntent = new Intent(this,LoginActivity.class);
+                        startActivity(loginIntent);
+                    }
+                    else{
+                    }
+                },
+                error -> Log.e("AmplifyQuickstart", error.toString())
+        );
+
+    }
+
+
 }
