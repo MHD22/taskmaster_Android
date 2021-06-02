@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import com.amplifyframework.datastore.generated.model.State;
+//import com.amplifyframework.datastore.generated.model.State;
 
 public class TaskDetailActivity extends AppCompatActivity {
 

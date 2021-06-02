@@ -10,25 +10,25 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amplifyframework.datastore.generated.model.Task;
+//import com.amplifyframework.datastore.generated.model.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder> {
 
-    List<Task> tasks = new ArrayList<>();
-//    List<TaskRoom> tasks = new ArrayList<>();
+//    List<Task> tasks = new ArrayList<>();
+    List<TaskRoom> tasks = new ArrayList<>();
     Context context;
 
-    public TaskAdapter(List<Task> tasks, Context context) {
-        this.context = context;
-        this.tasks = tasks;
-    }
-//    public TaskAdapter(List<TaskRoom> tasks, Context context) {
-//            this.context = context;
-//            this.tasks = tasks;
-//        }
+//    public TaskAdapter(List<Task> tasks, Context context) {
+//        this.context = context;
+//        this.tasks = tasks;
+//    }
+    public TaskAdapter(List<TaskRoom> tasks, Context context) {
+            this.context = context;
+            this.tasks = tasks;
+        }
 
     public static class TaskViewHolder extends RecyclerView.ViewHolder{
 
@@ -54,8 +54,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull TaskAdapter.TaskViewHolder holder, int position) {
-        Task task = tasks.get(position);
-//        TaskRoom task = tasks.get(position);
+//        Task task = tasks.get(position);
+        TaskRoom task = tasks.get(position);
         holder.titleT.setText(task.getTitle());
         holder.bodyT.setText(task.getBody());
 //        holder.stateT.setText(task.state.toString());

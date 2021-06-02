@@ -13,9 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.amplifyframework.core.Amplify;
-import com.amplifyframework.datastore.generated.model.State;
-import com.amplifyframework.datastore.generated.model.Task;
+
 
 public class AddTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -49,13 +47,13 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TaskRoom taskRoom = new TaskRoom(title.getText().toString(),body.getText().toString(), State.NEW);
-                Task task = Task.builder().title(title.getText().toString()).state(state).body(body.getText().toString()).build();
+                TaskRoom taskRoom = new TaskRoom(title.getText().toString(),body.getText().toString(), state);
+//                Task task = Task.builder().title(title.getText().toString()).state(state).body(body.getText().toString()).build();
 
-                Amplify.DataStore.save(task,
-                success -> Log.i("Tutorial", "Saved task: " + success.item().getTitle()),
-                error -> Log.e("Tutorial", "Could not save item to DataStore", error)
-                );
+//                Amplify.DataStore.save(task,
+//                success -> Log.i("Tutorial", "Saved task: " + success.item().getTitle()),
+//                error -> Log.e("Tutorial", "Could not save item to DataStore", error)
+//                );
 
                 taskDao.insert(taskRoom);
 

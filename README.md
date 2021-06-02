@@ -209,3 +209,46 @@ AddTaskActivity:
 <br>
 
 ### _________________________________
+
+
+***Sixth day's changes (lab 36):***
+
+* configure and add the Amplify Authentication (Cognito)
+* Add the Amplify pre-built UI for (Sign in, Sign up) Activity to the App.
+* change the launcher Activity to be the Login Activity.
+* The user must be signed in to see the home activity.
+* print the userName of the user that is logged in on the action bar of the main activity
+* Add Logout button to the main activity.
+
+*Screenshots:*
+
+MainActivity:
+
+<img src="screenshots/cognito/homeActivity6.png" alt="Main activity" width="200" height="350"/>
+
+<br>
+<br>
+<br>
+<br>
+
+
+Sign Up:
+
+<img src="screenshots/cognito/confirm.png" alt="Add Task Activity" width="200" height="350"/>
+<img src="screenshots/cognito/signUp.png" alt="Add Task Activity" width="200" height="350"/>
+<br>
+<br>
+<br>
+<br>
+
+
+Login :
+
+<img src="screenshots/cognito/Login.png" alt="Add Task Activity" width="200" height="350"/> 
+
+<br>
+<br>
+<br>
+<br>
+
+### _________________________________

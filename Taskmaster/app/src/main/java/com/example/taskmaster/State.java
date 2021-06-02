@@ -1,4 +1,4 @@
-package com.amplifyframework.datastore.generated.model;
+package com.example.taskmaster;
 /** Auto generated enum from GraphQL schema. */
 @SuppressWarnings("all")
 public enum State {
