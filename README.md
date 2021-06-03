@@ -252,3 +252,46 @@ Login :
 <br>
 
 ### _________________________________
+
+***Seventh day's changes (lab 37):***
+
+* Add and configure amplify s3 storage.
+* Add the ability to attach a file when create a task.
+* upload the files to the s3 storage.
+* Display the file in the task details page, (if it was an image; display it, If it isn't image, display a link for this file)
+
+*Screenshots:*
+
+MainActivity:
+
+<img src="screenshots/s3/s3_mainActivity.png" alt="Main activity" width="200" height="350"/>
+
+<br>
+<br>
+<br>
+<br>
+
+
+Add task:
+
+<img src="screenshots/s3/s3_addTask_1.png" alt="Add Task Activity" width="200" height="350"/>
+<img src="screenshots/s3/s3_addTask_2.png" alt="Add Task Activity" width="200" height="350"/>
+
+<br>
+<br>
+<br>
+<br>
+
+
+Task Details :
+
+<img src="screenshots/s3/s3_tastDetails_1.png" alt="Add Task Activity" width="200" height="350"/> 
+<img src="screenshots/s3/s3_taskDetails_2.png" alt="Add Task Activity" width="200" height="350"/> 
+<img src="screenshots/s3/s3_taskDetails_3.png" alt="Add Task Activity" width="200" height="350"/> 
+
+<br>
+<br>
+<br>
+<br>
+
+### _________________________________
