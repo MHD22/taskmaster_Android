@@ -14,11 +14,29 @@ public class TaskRoom {
     String title;
     String body;
     State state;
+    String file = null;
 
-    public TaskRoom(String title, String body, State state) {
+    public TaskRoom(String title, String body, State state, String file) {
         this.title = title;
         this.body = body;
         this.state = state;
+        this.file = file;
+    }
+//
+//    public TaskRoom(String title, String body, State state) {
+//        this.title = title;
+//        this.body = body;
+//        this.state = state;
+
+//    }
+
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
     }
 
     public TaskRoom() {

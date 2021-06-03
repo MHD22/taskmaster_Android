@@ -20,7 +20,7 @@ public abstract class TaskDataBase extends RoomDatabase {
                 if (db == null) {
                     db = Room.databaseBuilder(context.getApplicationContext(),
                             TaskDataBase.class,
-                            "task_master").allowMainThreadQueries().build();
+                            "task_master11").allowMainThreadQueries().build();
                 }
             }
         }

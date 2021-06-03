@@ -42,19 +42,6 @@ public class MainActivity extends AppCompatActivity {
         Button logout = findViewById(R.id.lougout_button_main_activity);
 
 
-////        Configure Amplify and
-//        try {
-//              Amplify.addPlugin(new AWSCognitoAuthPlugin());
-//              Amplify.configure(getApplicationContext());
-//
-//            Log.i("Tutorial", "Initialized Amplify");
-
-//            Amplify.Auth.signInWithWebUI(
-//                    this,
-//                    result -> Log.i("AuthQuickStart ", result.toString()),
-//                    error -> Log.e("AuthQuickStart", error.toString())
-//
-//            );
 
             Amplify.Auth.fetchAuthSession(
                     result ->{
@@ -70,29 +57,59 @@ public class MainActivity extends AppCompatActivity {
                     error -> Log.e("AmplifyQuickstart", error.toString())
             );
 
-            Amplify.Auth.fetchUserAttributes(
-                    attributes -> Log.i("AuthDemo", "User attributes = " + attributes.toString()),
-                    error -> Log.e("AuthDemo", "Failed to fetch user attributes.", error)
-            );
+//            Amplify.Auth.fetchUserAttributes(
+//                    attributes -> Log.i("AuthDemo", "User attributes = " + attributes.toString()),
+//                    error -> Log.e("AuthDemo", "Failed to fetch user attributes.", error)
+//            );
 
 
 
+        // dataBase usage..
+        TaskDataBase db = TaskDataBase.getInstance(this);
+        TaskDao taskDao = db.taskDao();
 
-//        } catch (AmplifyException e) {
-//            Log.e("Tutorial", "Could not initialize Amplify", e);
-//        }
-
-
-
+        List<TaskRoom> tasksDB = taskDao.getAll();
 
 
+//        RecyclerView
+        RecyclerView recyclerView = findViewById(R.id.RV_main);
+        TaskAdapter taskAdapter = new TaskAdapter(tasksDB, this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.canScrollVertically();
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(taskAdapter);
 
 
+        Button settings = MainActivity.this.findViewById(R.id.button_settings);
+        Button addTask = MainActivity.this.findViewById(R.id.button_add_task_main);
+
+        //-----------------------------
+        // for setting button.. and get name from settings.
+//        TextView title  = findViewById(R.id.home_page_title);
+//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        String userName = sharedPreferences.getString("userName","User");
+//        title.setText(userName+"' Tasks");
+
+        //-----------------------------
 
 
+        //listeners:
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(settingsIntent);
+            }
+        });
 
-
-
+        addTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addTaskIntent = new Intent(MainActivity.this, AddTaskActivity.class);
+                startActivity(addTaskIntent);
+            }
+        });
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,9 +136,35 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Amplify.Auth.fetchAuthSession(
+                result ->{
+                    if(! result.isSignedIn()){
+
+                        Intent loginIntent = new Intent(this,LoginActivity.class);
+                        startActivity(loginIntent);
+                    }
+                    else{
+                    }
+                },
+                error -> Log.e("AmplifyQuickstart", error.toString())
+        );
+
+    }
+
+
+}
 
 
 
+
+// dynamo DB:
 //                create new tasks ..
 //        Task task = Task.builder()
 //                .title("Clean up")
@@ -159,88 +202,3 @@ public class MainActivity extends AppCompatActivity {
 //        );
 
 
-
-
-
-
-        // dataBase usage..
-        TaskDataBase db = TaskDataBase.getInstance(this);
-        TaskDao taskDao = db.taskDao();
-
-        List<TaskRoom> tasksDB = taskDao.getAll();
-
-
-//        RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.RV_main);
-        TaskAdapter taskAdapter = new TaskAdapter(tasksDB, this);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        linearLayoutManager.canScrollVertically();
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(taskAdapter);
-
-
-        Button settings = MainActivity.this.findViewById(R.id.button_settings);
-
-        Button addTask = MainActivity.this.findViewById(R.id.button_add_task_main);
-//        TextView title  = findViewById(R.id.home_page_title);
-
-//        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        String userName = sharedPreferences.getString("userName","User");
-//        title.setText(userName+"' Tasks");
-
-
-
-        //listeners:
-
-        settings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(settingsIntent);
-            }
-        });
-
-        addTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addTaskIntent = new Intent(MainActivity.this, AddTaskActivity.class);
-                startActivity(addTaskIntent);
-            }
-        });
-
-
-
-    }
-
-//    private void triggerRecyclerView(List<Task> tasks2) {
-//        RecyclerView recyclerView = findViewById(R.id.RV_main);
-//        TaskAdapter taskAdapter = new TaskAdapter(tasks2, this);
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-//        linearLayoutManager.canScrollVertically();
-//        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-//        recyclerView.setLayoutManager(linearLayoutManager);
-//        recyclerView.setAdapter(taskAdapter);
-//    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Amplify.Auth.fetchAuthSession(
-                result ->{
-                    if(! result.isSignedIn()){
-
-                        Intent loginIntent = new Intent(this,LoginActivity.class);
-                        startActivity(loginIntent);
-                    }
-                    else{
-                    }
-                },
-                error -> Log.e("AmplifyQuickstart", error.toString())
-        );
-
-    }
-
-
-}
