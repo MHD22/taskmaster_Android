@@ -295,3 +295,23 @@ Task Details :
 <br>
 
 ### _________________________________
+
+***Changes of lab 38:***
+
+* Add Notifications to the app.
+* configure and add the Firebase notifications service.
+* send from the firebase console messages to the app and receive them as notifications.
+
+*Screenshots:*
+
+Notification:
+
+<img src="screenshots/notification/notification.png" alt="Main activity" width="200" height="350"/>
+
+<br>
+<br>
+<br>
+<br>
+
+
+### _________________________________
