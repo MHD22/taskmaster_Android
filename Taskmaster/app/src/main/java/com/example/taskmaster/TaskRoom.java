@@ -15,12 +15,32 @@ public class TaskRoom {
     String body;
     State state;
     String file = null;
+    double altitude = 0;
+    double longitude = 0;
 
-    public TaskRoom(String title, String body, State state, String file) {
+    public double getAltitude() {
+        return altitude;
+    }
+
+    public void setAltitude(double altitude) {
+        this.altitude = altitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public TaskRoom(String title, String body, State state, String file, double altitude, double longitude) {
         this.title = title;
         this.body = body;
         this.state = state;
         this.file = file;
+        this.altitude = altitude;
+        this.longitude = longitude;
     }
 //
 //    public TaskRoom(String title, String body, State state) {

@@ -32,6 +32,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_task_detail);
 
 
+
         ImageView image = findViewById(R.id.imageView);
         TextView linkTextView = findViewById(R.id.link_text_view_task_details_activity);
         TextView linkTitleTextView = findViewById(R.id.linkTitle_task_details_activity);
@@ -41,14 +42,27 @@ public class TaskDetailActivity extends AppCompatActivity {
 
         TextView bodyView = findViewById(R.id.txt_view_body_task_details);
         TextView stateView = findViewById(R.id.txt_view_state_task_details);
+        TextView locationTitleView = findViewById(R.id.location_title_task_details_activity);
+        TextView alt_longView = findViewById(R.id.alt_and_long_text_view_task_details_activity);
+
         Intent mainIntent = getIntent();
         String title = mainIntent.getStringExtra("title");
         String body = mainIntent.getStringExtra("body");
         State state = (State) mainIntent.getSerializableExtra("state");
 
 
-        String fileName = mainIntent.getStringExtra("fileName");
 
+        String fileName = mainIntent.getStringExtra("fileName");
+        double altitude = mainIntent.getDoubleExtra("altitude",0);
+        double longitude = mainIntent.getDoubleExtra("longitude",0);
+
+
+        if(altitude != 0 && longitude != 0){
+            locationTitleView.setVisibility(View.VISIBLE);
+            alt_longView.setText("Altitude: "+altitude+"  |  Longitude: "+longitude);
+            alt_longView.setVisibility(View.VISIBLE);
+
+        }
 
         if(fileName != null){
 
@@ -101,6 +115,8 @@ public class TaskDetailActivity extends AppCompatActivity {
         setTitle(title);
 
         bodyView.setText(body);
+        bodyView.setVisibility(View.VISIBLE);
+        Toast.makeText(this,"Task Body: "+ body,Toast.LENGTH_SHORT).show();
         stateView.setText(state.toString());
 
 

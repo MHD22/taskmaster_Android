@@ -83,5 +83,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.google.firebase:firebase-analytics'
 
+    // google play services
+    implementation 'com.google.android.gms:play-services-location:18.0.0'
+
 
 }
