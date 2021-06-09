@@ -295,3 +295,68 @@ Task Details :
 <br>
 
 ### _________________________________
+
+***Changes of lab 38(Notification):***
+
+* Add Notifications to the app.
+* configure and add the Firebase notifications service.
+* send from the firebase console messages to the app and receive them as notifications.
+
+*Screenshots:*
+
+Notification:
+
+<img src="screenshots/notification/notification.png" alt="Main activity" width="200" height="350"/>
+
+<br>
+<br>
+<br>
+<br>
+
+
+### _________________________________
+
+***Changes of lab 41(intent filter):***
+
+* Add the ability to share an image from external apps to add it to new task.
+* when an image shared from external app, the button attach file will be disabled.
+* the shared image will be uploaded to S3 storage and will be displayed in the tast details activity when the task is clicked from the main activity.
+
+*Screenshots:*
+
+Select an image to share:
+
+<img src="screenshots/intent filter/sharedImage0.png" alt="Main activity" width="200" height="350"/>
+
+<hr>
+
+share selection list:
+
+<img src="screenshots/intent filter/shareScreen.png" alt="Main activity" width="200" height="350"/>
+
+<hr>
+
+Add task Activity:
+
+<img src="screenshots/intent filter/sharedTask2.png" alt="Main activity" width="200" height="350"/>
+
+<hr>
+
+The added task in main Activity:
+
+<img src="screenshots/intent filter/mainAct3.png" alt="Main activity" width="200" height="350"/>
+
+<hr>
+
+The task details activity:
+
+<img src="screenshots/intent filter/Details page4.png" alt="Main activity" width="200" height="350"/>
+
+
+<br>
+<br>
+<br>
+<br>
+
+
+### _________________________________
