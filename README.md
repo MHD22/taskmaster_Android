@@ -360,3 +360,24 @@ The task details activity:
 
 
 ### _________________________________
+
+
+***Changes of lab 42(Location):***
+
+* Add Current Location to the task added.
+* request Location permission from the users
+* store the location as Altitude and Longitude values for each task Added.
+
+*Screenshots:*
+
+Location permission:
+
+<img src="screenshots/Locatiopn/Location1.png" alt="Main activity" width="200" height="350"/>
+
+<br>
+<br>
+<br>
+<br>
+
+
+### _________________________________

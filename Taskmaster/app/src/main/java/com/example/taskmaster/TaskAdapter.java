@@ -2,10 +2,12 @@ package com.example.taskmaster;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -68,6 +70,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
                 taskDetailsIntent.putExtra("body", task.getBody());
                 taskDetailsIntent.putExtra("state", task.getState());
                 taskDetailsIntent.putExtra("fileName", task.getFile());
+                taskDetailsIntent.putExtra("altitude", task.getAltitude());
+                taskDetailsIntent.putExtra("longitude", task.getLongitude());
+                Log.i("Adapter.. ",task.getAltitude()+"");
                 context.startActivity(taskDetailsIntent);
             }
         });
