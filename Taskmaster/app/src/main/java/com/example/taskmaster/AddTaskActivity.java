@@ -29,6 +29,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 
 
 public class AddTaskActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -36,10 +37,34 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
     State state = State.NEW;
     String fileName = null;
 
+    Uri fileUri = null;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+
+        Button pickFileButton = findViewById(R.id.pick_file_button_add_task_activity);
+
+        // receive image from another app:
+        // Get the intent that started this activity
+        Intent intent = getIntent();
+        Uri data =(Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+        fileUri = data;
+//        (Uri) intent.getParcelableExtra(Intent.EXTRA_STREAM);
+
+//        Toast.makeText(this,"file loaded "+ "Helloooo 1 "+data.getPath() ,Toast.LENGTH_SHORT).show();
+
+        // Figure out what to do based on the intent type
+
+        if ( data != null && intent.getType() != null && intent.getType().indexOf("image/") != -1) {
+            pickFileButton.setEnabled(false);
+
+//            uploadFile(data);
+            Toast.makeText(this,"file loaded "+ "Helloooo 1 " ,Toast.LENGTH_SHORT).show();
+
+        }
 
         Spinner spinner = findViewById(R.id.stateSpinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.stateSpinner,android.R.layout.simple_spinner_item);
@@ -64,6 +89,9 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                uploadFile(fileUri);
+
                 TaskRoom taskRoom = new TaskRoom(title.getText().toString(),body.getText().toString(), state, fileName);
 //                Task task = Task.builder().title(title.getText().toString()).state(state).body(body.getText().toString()).build();
 
@@ -75,6 +103,8 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
                 Toast.makeText(AddTaskActivity.this, "fileName: "+ fileName, Toast.LENGTH_SHORT).show();
                 taskDao.insert(taskRoom);
 
+
+
                 Intent mainIntent = new Intent(AddTaskActivity.this, MainActivity.class);
                 startActivity(mainIntent);
             }
@@ -82,7 +112,6 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
 
 
         // attaching a file :
-        Button pickFileButton = findViewById(R.id.pick_file_button_add_task_activity);
         pickFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,33 +153,41 @@ public class AddTaskActivity extends AppCompatActivity implements AdapterView.On
 
             // get file name ..
             Uri returnUri = data.getData();
-            Cursor returnCursor = getContentResolver().query(returnUri, null, null, null, null);
-            int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-            returnCursor.moveToFirst();
-            String file_name = returnCursor.getString(nameIndex);
-            this.fileName = file_name;
-
-            File file = new File(getApplicationContext().getFilesDir(), file_name);
-            try {
-                InputStream inputStream = getContentResolver().openInputStream(returnUri);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                    FileUtils.copy(inputStream, new FileOutputStream(file));
-                    Toast.makeText(this,"file loaded "+ file.getName() ,Toast.LENGTH_SHORT).show();
-                    uploadFile(file, file_name);
-                }
-                else{
-                    Toast.makeText(this,"file Error ",Toast.LENGTH_SHORT).show();
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            fileUri = returnUri;
+//            uploadFile(returnUri);
 
         }
     }
 
-    public void uploadFile(File file, String fileName){
+
+    public void uploadFile(Uri returnUri){
+        if(returnUri == null)
+            return;
+
+        Cursor returnCursor = getContentResolver().query(returnUri, null, null, null, null);
+        int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+        returnCursor.moveToFirst();
+        String file_name = returnCursor.getString(nameIndex);
+        this.fileName = file_name;
+
+        File file = new File(getApplicationContext().getFilesDir(), file_name);
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(returnUri);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                FileUtils.copy(inputStream, new FileOutputStream(file));
+                Toast.makeText(this,"file loaded "+ file.getName() ,Toast.LENGTH_SHORT).show();
+                uploadFile(file, file_name);
+            }
+            else{
+                Toast.makeText(this,"file Error ",Toast.LENGTH_SHORT).show();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    private void uploadFile(File file, String fileName){
         Amplify.Storage.uploadFile(
                 fileName,
                 file,

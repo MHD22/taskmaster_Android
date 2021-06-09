@@ -44,25 +44,30 @@ public class TaskDetailActivity extends AppCompatActivity {
         Intent mainIntent = getIntent();
         String title = mainIntent.getStringExtra("title");
         String body = mainIntent.getStringExtra("body");
-        State state = (State)mainIntent.getSerializableExtra("state");
-        String fileName =mainIntent.getStringExtra("fileName");
+        State state = (State) mainIntent.getSerializableExtra("state");
+
+
+        String fileName = mainIntent.getStringExtra("fileName");
 
 
         if(fileName != null){
-            File outFile=new File(getApplicationContext().getFilesDir() + fileName) ;
+
+            File outFile=new File(getApplicationContext().getFilesDir() + fileName);
             Amplify.Storage.downloadFile(
                     fileName,
                     outFile,
-                    result -> {Log.i("MyAmplifyApp", "Successfully downloaded: " + result.getFile().getTotalSpace());
+                    result -> {
+                        Log.i("MyAmplifyApp", "Successfully downloaded: " + result.getFile().getTotalSpace());
 
                         String fileType = getFileType(result.getFile().getPath());
                         boolean isImage = isTheFileImage(fileType);
-                        Toast.makeText(this, "is image: ? "+ isImage,Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(this, "is image: ? "+ isImage,Toast.LENGTH_SHORT).show();
 
                         if(isImage){
                             Bitmap bitmap = convertFileToImage(result.getFile());
                             image.setImageBitmap(bitmap);
                             image.setVisibility(View.VISIBLE);
+
                             linkTextView.setVisibility(View.INVISIBLE);
                             linkTitleTextView.setVisibility(View.INVISIBLE);
 
@@ -72,6 +77,7 @@ public class TaskDetailActivity extends AppCompatActivity {
                             linkTextView.setText(linkToFile);
                             linkTextView.setVisibility(View.VISIBLE);
                             linkTitleTextView.setVisibility(View.VISIBLE);
+
                             image.setVisibility(View.INVISIBLE);
                         }
 
